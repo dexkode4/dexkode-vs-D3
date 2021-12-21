@@ -3,6 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import * as vl from 'vega-lite-api';
+import * as vega from 'vega';
+import * as vegalite from 'vega-lite';
+import {Handler} from 'vega-tooltip'
+
+vl.register(vega,vegalite, {
+  view: {renderer : 'svg'},
+  init: view => {view.tooltip(new Handler().call)}
+})
+
 
 ReactDOM.render(
   <React.StrictMode>

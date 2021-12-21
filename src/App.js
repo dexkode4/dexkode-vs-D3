@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { MouseTracker } from "./views/MouseTracker";
+import { CssColorDataVis } from "./views/CssColorDataVis";
+import { viz } from "./vis";
+import { fetchData } from "./API";
+import { PopulationDataVis } from "./views/PopulationDataVis";
 
 function App() {
+  const dark = "#3e3c38"
+  const config = {
+    axis: {
+      domain: false,
+      tickcolor: 'lightGray'
+    },
+    style: {
+      "guide-label":{
+        fontSize: 20,
+        fill: dark
+      },
+      "guide-title": {
+        fontSize: 30,
+        fill: dark,
+        labelLimit: 0
+      }
+    }
+  }
+
+   const run = async () => {
+    const marks = viz.data(await fetchData())
+    .width(window.innerWidth)
+    .height(window.innerHeight)
+    .autosize({type: 'fit', contains: 'padding'})
+    .config(config);
+
+    document.body.appendChild(await marks.render())
+  }
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      // <Smileyface/>
+    //  <div>
+    //    {run()[0]}
+    //  </div>
+      // <MouseTracker/>
+      // <CssColorDataVis/>
+      <PopulationDataVis/>
   );
 }
 
